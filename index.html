@@ -2,427 +2,433 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aether</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Nourish — Правильное питание красиво</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #e8eee9;
-      color: #1a1f1c;
-      min-height: 100vh;
-      overflow-x: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f4f7f2;
+      color: #1a211c;
       -webkit-font-smoothing: antialiased;
     }
+    .font-serif { font-family: 'Playfair Display', serif; }
     .soft-card {
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: blur(28px) saturate(160%);
-      -webkit-backdrop-filter: blur(28px) saturate(160%);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 
-        0 4px 24px -4px rgba(0, 0, 0, 0.06),
-        0 12px 48px -8px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 4px 24px -4px rgba(0,0,0,0.05), 0 12px 40px -8px rgba(0,0,0,0.06);
     }
     .soft-card-strong {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(40px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 
-        0 8px 32px -6px rgba(0, 0, 0, 0.08),
-        0 20px 60px -12px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(32px);
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 8px 32px -6px rgba(0,0,0,0.07), 0 20px 50px -12px rgba(0,0,0,0.08);
     }
-    .green-glow {
-      background: linear-gradient(145deg, #a8c5b0 0%, #7a9e86 45%, #5c7d68 100%);
+    .green-grad {
+      background: linear-gradient(145deg, #a8c5a0 0%, #7d9b76 50%, #5c7a56 100%);
     }
-    .ring-progress {
-      stroke-dasharray: 283;
-      stroke-dashoffset: 70;
-      transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    .btn {
+      transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
     }
-    .btn-soft {
-      transition: all 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
-    }
-    .btn-soft:hover {
-      transform: scale(1.04);
-      box-shadow: 0 8px 24px -4px rgba(0,0,0,0.12);
-    }
-    .btn-soft:active {
-      transform: scale(0.97);
-    }
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    .progress-bar {
-      height: 6px;
-      border-radius: 99px;
-      background: #e5ebe6;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: linear-gradient(90deg, #7a9e86, #a8c5b0);
-    }
-    .ambient {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: 
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(168, 197, 176, 0.35) 0%, transparent 50%),
-        radial-gradient(ellipse 70% 50% at 80% 80%, rgba(140, 170, 150, 0.25) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 70%);
-    }
-    .dot-pattern {
-      background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-    .desktop-stage { display: none; }
-    @media (min-width: 900px) {
-      .desktop-stage { display: block; }
-      .mobile-stack { display: none; }
-    }
-    @media (min-width: 900px) {
-      .float { animation: floaty 8s ease-in-out infinite; }
-      .float-delayed { animation: floaty 9s ease-in-out infinite; animation-delay: -3s; }
-      .float-more { animation: floaty 7.5s ease-in-out infinite; animation-delay: -5s; }
-    }
-    @keyframes floaty {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    .lang-btn { transition: all 0.25s ease; }
-    .lang-btn.active { background: #1a1f1c; color: white; }
+    .btn:hover { transform: scale(1.03); }
+    .btn:active { transform: scale(0.97); }
+    .fade-up { opacity: 0; transform: translateY(24px); }
+    .recipe-step { transition: all 0.3s ease; }
+    .recipe-step:hover { background: #f0f5ed; }
   </style>
 </head>
-<body class="relative">
-  <div class="ambient"></div>
-  <div class="fixed inset-0 dot-pattern opacity-40 pointer-events-none"></div>
+<body class="relative overflow-x-hidden">
 
-  <div class="relative z-10 min-h-screen flex flex-col">
-    <header class="px-5 sm:px-6 pt-6 sm:pt-8 pb-3 flex items-center justify-between max-w-6xl mx-auto w-full">
-      <div class="flex items-center gap-2.5 sm:gap-3">
-        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl soft-card-strong flex items-center justify-center">
-          <div class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-gradient-to-br from-[#7a9e86] to-[#5c7d68]"></div>
-        </div>
-        <span class="font-semibold tracking-tight text-[16px] sm:text-[17px] text-[#1a1f1c]">Aether</span>
+  <div class="fixed inset-0 pointer-events-none" style="background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,197,160,0.25) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 90% 80%, rgba(140,170,140,0.15) 0%, transparent 50%);"></div>
+
+  <header class="relative z-20 px-5 sm:px-8 py-5 flex items-center justify-between max-w-6xl mx-auto">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-xl green-grad flex items-center justify-center">
+        <div class="w-3 h-3 rounded-full bg-white/90"></div>
       </div>
-      <div class="flex items-center gap-2 sm:gap-3">
-        <div class="flex soft-card rounded-full p-0.5 text-[12px] font-medium">
-          <button id="lang-ru" class="lang-btn active rounded-full px-2.5 py-1" onclick="setLang('ru')">RU</button>
-          <button id="lang-en" class="lang-btn rounded-full px-2.5 py-1 text-[#5c6b62]" onclick="setLang('en')">EN</button>
-        </div>
-        <div class="hidden sm:flex items-center gap-1.5 soft-card rounded-full px-3 py-1.5 text-[12px] text-[#4a554e]">
+      <span class="font-semibold text-[17px] tracking-tight">Nourish</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 text-[14px] text-[#4a554e]">
+      <a href="#how" class="hover:text-[#1a211c] transition">Как работает</a>
+      <a href="#meals" class="hover:text-[#1a211c] transition">Рацион</a>
+      <a href="#progress" class="hover:text-[#1a211c] transition">Прогресс</a>
+      <a href="#supplements" class="hover:text-[#1a211c] transition">БАДы</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button class="btn soft-card rounded-full px-4 py-2 text-[13px] font-medium">Войти</button>
+      <button class="btn green-grad text-white rounded-full px-5 py-2.5 text-[13px] font-medium shadow-lg shadow-[#7d9b76]/30">Начать</button>
+    </div>
+  </header>
+
+  <section class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-16 sm:pt-16 sm:pb-24">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="fade-up">
+        <div class="inline-flex items-center gap-2 soft-card rounded-full px-3.5 py-1.5 text-[12px] text-[#4a554e] mb-6">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          <span data-i18n="live">Онлайн</span>
+          Персональный план питания
         </div>
-        <button class="btn-soft soft-card-strong rounded-full px-4 sm:px-5 py-2 text-[12px] sm:text-[13px] font-medium text-[#1a1f1c]" data-i18n="enter">
-          Войти
-        </button>
-      </div>
-    </header>
-
-    <main class="flex-1 flex flex-col items-center px-4 sm:px-5 py-6 sm:py-10 md:py-14">
-
-      <div class="desktop-stage relative w-full max-w-[880px] h-[560px]">
-        <div class="absolute left-[2%] top-[6%] w-[310px] float fade-up">
-          <div class="soft-card-strong rounded-[28px] overflow-hidden green-glow relative shadow-2xl">
-            <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
-            <div class="relative p-6 text-white">
-              <div class="flex items-start justify-between mb-6">
-                <div>
-                  <div class="text-[11px] font-medium tracking-widest uppercase opacity-80" data-i18n="time_tracker">Трекер времени</div>
-                  <div class="text-[13px] opacity-70 mt-0.5"><span data-i18n="week_total">Неделя:</span> 56ч</div>
-                </div>
-                <div class="rounded-full px-2.5 py-1 text-[11px] flex items-center gap-1.5 bg-white/20">
-                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                  <span data-i18n="today">Сегодня</span>
-                </div>
-              </div>
-              <div class="flex justify-center mb-7">
-                <div class="relative w-[150px] h-[150px]">
-                  <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="5"/>
-                    <circle class="ring-progress" cx="50" cy="50" r="42" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
-                  </svg>
-                  <div class="absolute inset-0 flex flex-col items-center justify-center">
-                    <div class="text-[30px] font-semibold tracking-tight leading-none">07:16</div>
-                    <div class="text-[11px] opacity-70 mt-1 tracking-wider" data-i18n="hours">ЧАСОВ</div>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <div class="flex gap-2">
-                  <button class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center"><div class="w-3 h-3 bg-white rounded-sm"></div></button>
-                  <button class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center"><div class="flex gap-0.5"><div class="w-1 h-3 bg-white rounded-full"></div><div class="w-1 h-3 bg-white rounded-full"></div></div></button>
-                </div>
-                <button class="w-11 h-11 rounded-full bg-white text-[#5c7d68] flex items-center justify-center shadow-lg">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="absolute left-[6%] bottom-[4%] w-[230px] float-delayed fade-up">
-          <div class="soft-card rounded-[22px] p-5">
-            <div class="text-[12px] text-[#6b756f] mb-1" data-i18n="project_time">Время проекта</div>
-            <div class="flex items-end justify-between mb-3">
-              <div class="text-[26px] font-semibold tracking-tight">68ч</div>
-              <div class="text-[12px] text-[#7a9e86] font-medium">65%</div>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
-            <div class="flex gap-1.5 mt-3">
-              <div class="h-1.5 flex-1 rounded-full bg-[#7a9e86]"></div>
-              <div class="h-1.5 w-8 rounded-full bg-[#1a1f1c]"></div>
-              <div class="h-1.5 w-5 rounded-full bg-[#d1d9d3]"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="absolute left-[40%] top-[2%] w-[250px] float-more fade-up">
-          <div class="soft-card rounded-[22px] p-4 flex items-center gap-3">
-            <div class="w-11 h-13 rounded-xl bg-gradient-to-b from-[#e8eee9] to-[#d4ddd6] flex flex-col items-center justify-center shrink-0 py-1.5">
-              <div class="text-[10px] text-[#6b756f] font-medium" data-i18n="june">Июнь</div>
-              <div class="text-[18px] font-semibold leading-none">02</div>
-            </div>
-            <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c4b5fd] to-[#a78bfa] flex items-center justify-center text-white text-xs font-medium shrink-0">AS</div>
-              <div class="min-w-0">
-                <div class="text-[10px] text-[#6b756f] tracking-wide" data-i18n="future">СКОРО</div>
-                <div class="text-[13px] font-semibold truncate" data-i18n="anniversary">ГОДОВЩИНА</div>
-                <div class="text-[11px] text-[#6b756f]">Ann Stollen</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="absolute right-[1%] top-[16%] w-[250px] float fade-up">
-          <div class="soft-card-strong rounded-[24px] p-5">
-            <div class="flex items-center justify-between mb-4">
-              <div class="text-[12px] font-semibold tracking-wide text-[#1a1f1c]" data-i18n="todays_meetings">ВСТРЕЧИ СЕГОДНЯ</div>
-              <div class="w-5 h-5 rounded-full bg-[#1a1f1c] text-white text-[10px] flex items-center justify-center font-medium">2</div>
-            </div>
-            <div class="space-y-3.5">
-              <div class="flex gap-3">
-                <div class="text-[16px] font-semibold text-[#1a1f1c] w-12 shrink-0">09:20</div>
-                <div>
-                  <div class="text-[13px] font-medium" data-i18n="meeting1">Ежедневный обзор</div>
-                  <div class="text-[11px] text-[#6b756f]" data-i18n="meeting1_sub">Организация команды</div>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <div class="text-[16px] font-semibold text-[#1a1f1c] w-12 shrink-0">11:00</div>
-                <div>
-                  <div class="text-[13px] font-medium" data-i18n="meeting2">Sprint Surge</div>
-                  <div class="text-[11px] text-[#6b756f]" data-i18n="meeting2_sub">Буст для Agile</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="absolute right-[10%] bottom-[24%] float-delayed fade-up">
-          <div class="soft-card rounded-2xl px-4 py-3 flex items-center gap-3">
-            <div class="w-7 h-7 rounded-full green-glow flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-white"></div></div>
-            <div>
-              <div class="text-[12px] font-medium" data-i18n="hyper_focus">Hyper Focus</div>
-              <div class="text-[11px] text-[#6b756f]"><span data-i18n="active">Активен</span> · 34%</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="absolute right-[4%] bottom-[3%] w-[170px] float-more fade-up">
-          <div class="soft-card rounded-[20px] p-4">
-            <div class="text-[11px] text-[#6b756f] mb-2" data-i18n="projects">Проекты</div>
-            <div class="flex items-end gap-1.5 h-11">
-              <div class="w-2.5 bg-[#d1d9d3] rounded-t-sm h-[40%]"></div>
-              <div class="w-2.5 bg-[#a8c5b0] rounded-t-sm h-[65%]"></div>
-              <div class="w-2.5 bg-[#7a9e86] rounded-t-sm h-[90%]"></div>
-              <div class="w-2.5 bg-[#5c7d68] rounded-t-sm h-[70%]"></div>
-              <div class="w-2.5 bg-[#a8c5b0] rounded-t-sm h-[55%]"></div>
-              <div class="w-2.5 bg-[#d1d9d3] rounded-t-sm h-[35%]"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mobile-stack w-full max-w-[400px] space-y-4">
-        <div class="fade-up">
-          <div class="soft-card-strong rounded-[24px] overflow-hidden green-glow relative">
-            <div class="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent pointer-events-none"></div>
-            <div class="relative p-5 text-white">
-              <div class="flex items-start justify-between mb-5">
-                <div>
-                  <div class="text-[11px] font-medium tracking-widest uppercase opacity-80" data-i18n="time_tracker">Трекер времени</div>
-                  <div class="text-[13px] opacity-70 mt-0.5"><span data-i18n="week_total">Неделя:</span> 56ч</div>
-                </div>
-                <div class="rounded-full px-2.5 py-1 text-[11px] flex items-center gap-1.5 bg-white/20"><span data-i18n="today">Сегодня</span></div>
-              </div>
-              <div class="flex justify-center mb-5">
-                <div class="relative w-[140px] h-[140px]">
-                  <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="5"/>
-                    <circle class="ring-progress" cx="50" cy="50" r="42" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
-                  </svg>
-                  <div class="absolute inset-0 flex flex-col items-center justify-center">
-                    <div class="text-[28px] font-semibold tracking-tight leading-none">07:16</div>
-                    <div class="text-[10px] opacity-70 mt-1 tracking-wider" data-i18n="hours">ЧАСОВ</div>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <div class="flex gap-2">
-                  <button class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center"><div class="w-3 h-3 bg-white rounded-sm"></div></button>
-                  <button class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center"><div class="flex gap-0.5"><div class="w-1 h-3 bg-white rounded-full"></div><div class="w-1 h-3 bg-white rounded-full"></div></div></button>
-                </div>
-                <button class="w-11 h-11 rounded-full bg-white text-[#5c7d68] flex items-center justify-center shadow-lg">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 fade-up">
-          <div class="soft-card rounded-[20px] p-4">
-            <div class="text-[11px] text-[#6b756f] mb-1" data-i18n="project_time">Время проекта</div>
-            <div class="text-[22px] font-semibold tracking-tight mb-2">68ч</div>
-            <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
-            <div class="text-[11px] text-[#7a9e86] font-medium mt-2">65%</div>
-          </div>
-          <div class="soft-card rounded-[20px] p-4 flex flex-col justify-between">
-            <div class="text-[11px] text-[#6b756f] mb-2" data-i18n="projects">Проекты</div>
-            <div class="flex items-end gap-1 h-10">
-              <div class="w-2 bg-[#d1d9d3] rounded-t-sm h-[40%]"></div>
-              <div class="w-2 bg-[#a8c5b0] rounded-t-sm h-[65%]"></div>
-              <div class="w-2 bg-[#7a9e86] rounded-t-sm h-[90%]"></div>
-              <div class="w-2 bg-[#5c7d68] rounded-t-sm h-[70%]"></div>
-              <div class="w-2 bg-[#a8c5b0] rounded-t-sm h-[55%]"></div>
-              <div class="w-2 bg-[#d1d9d3] rounded-t-sm h-[35%]"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up">
-          <div class="soft-card rounded-[20px] p-4 flex items-center gap-3">
-            <div class="w-12 h-14 rounded-xl bg-gradient-to-b from-[#e8eee9] to-[#d4ddd6] flex flex-col items-center justify-center shrink-0">
-              <div class="text-[10px] text-[#6b756f] font-medium" data-i18n="june">Июнь</div>
-              <div class="text-[18px] font-semibold leading-none">02</div>
-            </div>
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#c4b5fd] to-[#a78bfa] flex items-center justify-center text-white text-sm font-medium shrink-0">AS</div>
-              <div class="min-w-0">
-                <div class="text-[10px] text-[#6b756f] tracking-wide" data-i18n="future">СКОРО</div>
-                <div class="text-[14px] font-semibold" data-i18n="anniversary">ГОДОВЩИНА</div>
-                <div class="text-[12px] text-[#6b756f]">Ann Stollen</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up">
-          <div class="soft-card-strong rounded-[22px] p-5">
-            <div class="flex items-center justify-between mb-4">
-              <div class="text-[12px] font-semibold tracking-wide text-[#1a1f1c]" data-i18n="todays_meetings">ВСТРЕЧИ СЕГОДНЯ</div>
-              <div class="w-5 h-5 rounded-full bg-[#1a1f1c] text-white text-[10px] flex items-center justify-center font-medium">2</div>
-            </div>
-            <div class="space-y-3.5">
-              <div class="flex gap-3">
-                <div class="text-[16px] font-semibold text-[#1a1f1c] w-12 shrink-0">09:20</div>
-                <div>
-                  <div class="text-[13px] font-medium" data-i18n="meeting1">Ежедневный обзор</div>
-                  <div class="text-[11px] text-[#6b756f]" data-i18n="meeting1_sub">Организация команды</div>
-                </div>
-              </div>
-              <div class="flex gap-3">
-                <div class="text-[16px] font-semibold text-[#1a1f1c] w-12 shrink-0">11:00</div>
-                <div>
-                  <div class="text-[13px] font-medium" data-i18n="meeting2">Sprint Surge</div>
-                  <div class="text-[11px] text-[#6b756f]" data-i18n="meeting2_sub">Буст для Agile</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up">
-          <div class="soft-card rounded-2xl px-4 py-3.5 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full green-glow flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-white"></div></div>
-            <div>
-              <div class="text-[13px] font-medium" data-i18n="hyper_focus">Hyper Focus</div>
-              <div class="text-[11px] text-[#6b756f]"><span data-i18n="active">Активен</span> · 34%</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-10 sm:mt-8 text-center max-w-md px-2 fade-up">
-        <h1 class="text-[26px] sm:text-[32px] font-semibold tracking-tight text-[#1a1f1c] leading-tight mb-3">
-          <span data-i18n="headline1">Мягкая сила.</span><br>
-          <span data-i18n="headline2">Чистый сигнал.</span>
+        <h1 class="font-serif text-[36px] sm:text-[48px] lg:text-[52px] leading-[1.15] tracking-tight text-[#1a211c] mb-5">
+          Правильное питание.<br>
+          <span class="text-[#5c7a56]">Красиво и понятно.</span>
         </h1>
-        <p class="text-[14px] sm:text-[15px] text-[#5c6b62] leading-relaxed mb-7 max-w-sm mx-auto" data-i18n="subtitle">
-          Спокойный интерфейс, который не мешает, пока он не нужен.
+        <p class="text-[16px] sm:text-[17px] text-[#5c6b62] leading-relaxed max-w-md mb-8">
+          Персональный рацион, подробные рецепты как карты, прогресс и всё необходимое — спортпит, витамины, БАДы — в одном спокойном месте.
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <button class="btn-soft green-glow text-white rounded-2xl px-8 py-3.5 text-[14px] sm:text-[15px] font-medium shadow-lg shadow-[#7a9e86]/40 w-full sm:w-auto" data-i18n="begin">Начать</button>
-          <button class="btn-soft soft-card rounded-2xl px-8 py-3.5 text-[14px] sm:text-[15px] font-medium text-[#1a1f1c] w-full sm:w-auto" data-i18n="see_flow">Посмотреть</button>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button class="btn green-grad text-white rounded-2xl px-7 py-3.5 text-[15px] font-medium shadow-lg shadow-[#7d9b76]/35">
+            Собрать мой рацион
+          </button>
+          <button class="btn soft-card-strong rounded-2xl px-7 py-3.5 text-[15px] font-medium">
+            Посмотреть пример
+          </button>
+        </div>
+        <div class="flex items-center gap-6 mt-10 text-[13px] text-[#6b756f]">
+          <div><span class="font-semibold text-[#1a211c]">12 400+</span> рационов</div>
+          <div class="w-px h-4 bg-[#d1d9d3]"></div>
+          <div><span class="font-semibold text-[#1a211c]">4.9</span> оценка</div>
         </div>
       </div>
-    </main>
 
-    <footer class="px-6 py-7 flex items-center justify-center gap-5 text-[12px] text-[#8a958c]">
-      <span>Aether</span>
-      <span class="w-1 h-1 rounded-full bg-[#c5cdc7]"></span>
-      <span data-i18n="early_access">Ранний доступ открыт</span>
-    </footer>
-  </div>
+      <div class="fade-up relative">
+        <div class="soft-card-strong rounded-[28px] p-6 sm:p-7 max-w-md mx-auto">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <div class="text-[12px] text-[#6b756f]">Завтрак · 08:30</div>
+              <div class="text-[20px] font-semibold mt-0.5">Зелёный смузи</div>
+            </div>
+            <div class="w-12 h-12 rounded-2xl green-grad flex items-center justify-center text-white text-[18px]">🥤</div>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-3 mb-5">
+            <div class="bg-[#f0f5ed] rounded-xl p-3 text-center">
+              <div class="text-[18px] font-semibold text-[#1a211c]">320</div>
+              <div class="text-[11px] text-[#6b756f]">ккал</div>
+            </div>
+            <div class="bg-[#f0f5ed] rounded-xl p-3 text-center">
+              <div class="text-[18px] font-semibold text-[#1a211c]">18г</div>
+              <div class="text-[11px] text-[#6b756f]">белки</div>
+            </div>
+            <div class="bg-[#f0f5ed] rounded-xl p-3 text-center">
+              <div class="text-[18px] font-semibold text-[#1a211c]">12м</div>
+              <div class="text-[11px] text-[#6b756f]">время</div>
+            </div>
+          </div>
+
+          <div class="space-y-2.5 mb-5">
+            <div class="flex items-center gap-3 text-[13px]">
+              <div class="w-6 h-6 rounded-full bg-[#7d9b76] text-white text-[11px] flex items-center justify-center font-medium">1</div>
+              <span>Шпинат 40г + банан 1 шт</span>
+            </div>
+            <div class="flex items-center gap-3 text-[13px]">
+              <div class="w-6 h-6 rounded-full bg-[#7d9b76] text-white text-[11px] flex items-center justify-center font-medium">2</div>
+              <span>Протеин 25г + миндальное молоко</span>
+            </div>
+            <div class="flex items-center gap-3 text-[13px]">
+              <div class="w-6 h-6 rounded-full bg-[#a8c5a0] text-white text-[11px] flex items-center justify-center font-medium">3</div>
+              <span>Взбить 40 секунд</span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-4 border-t border-[#e5ebe6]">
+            <div class="text-[13px] text-[#6b756f]">Себестоимость ≈ 180 ₽</div>
+            <button class="btn green-grad text-white text-[13px] rounded-xl px-4 py-2 font-medium">Открыть карту</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
+    <div class="text-center mb-12 fade-up">
+      <h2 class="font-serif text-[28px] sm:text-[34px] tracking-tight mb-3">Как это работает</h2>
+      <p class="text-[#5c6b62] text-[15px] max-w-md mx-auto">Три шага до понятного и вкусного рациона</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-5">
+      <div class="soft-card rounded-[24px] p-6 fade-up">
+        <div class="w-10 h-10 rounded-2xl green-grad text-white flex items-center justify-center text-[15px] font-semibold mb-4">1</div>
+        <h3 class="font-semibold text-[17px] mb-2">Рассказываешь о себе</h3>
+        <p class="text-[14px] text-[#5c6b62] leading-relaxed">Цели, предпочтения, аллергии, время на готовку. Сервис собирает план именно под тебя.</p>
+      </div>
+      <div class="soft-card rounded-[24px] p-6 fade-up">
+        <div class="w-10 h-10 rounded-2xl green-grad text-white flex items-center justify-center text-[15px] font-semibold mb-4">2</div>
+        <h3 class="font-semibold text-[17px] mb-2">Получаешь рацион</h3>
+        <p class="text-[14px] text-[#5c6b62] leading-relaxed">Готовый план на день/неделю. Каждое блюдо — подробная карта с шагами, КБЖУ и стоимостью.</p>
+      </div>
+      <div class="soft-card rounded-[24px] p-6 fade-up">
+        <div class="w-10 h-10 rounded-2xl green-grad text-white flex items-center justify-center text-[15px] font-semibold mb-4">3</div>
+        <h3 class="font-semibold text-[17px] mb-2">Готовишь и растёшь</h3>
+        <p class="text-[14px] text-[#5c6b62] leading-relaxed">Отмечаешь приёмы пищи, смотришь прогресс, добавляешь БАДы и спортпит по необходимости.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="meals" class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 py-16">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 fade-up">
+      <div>
+        <h2 class="font-serif text-[28px] sm:text-[34px] tracking-tight mb-2">Рацион на сегодня</h2>
+        <p class="text-[#5c6b62] text-[15px]">Пример персонального дня · 1840 ккал</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="soft-card rounded-full px-4 py-2 text-[13px] font-medium">Завтрак</button>
+        <button class="green-grad text-white rounded-full px-4 py-2 text-[13px] font-medium">Обед</button>
+        <button class="soft-card rounded-full px-4 py-2 text-[13px] font-medium">Ужин</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="soft-card-strong rounded-[24px] overflow-hidden fade-up group cursor-pointer">
+        <div class="h-36 green-grad relative flex items-center justify-center">
+          <span class="text-[48px]">🥗</span>
+          <div class="absolute top-3 right-3 soft-card rounded-full px-2.5 py-1 text-[11px] font-medium">420 ккал</div>
+        </div>
+        <div class="p-5">
+          <div class="text-[12px] text-[#6b756f] mb-1">Обед · 13:00</div>
+          <h3 class="font-semibold text-[17px] mb-2">Боул с киноа и лососем</h3>
+          <div class="flex gap-3 text-[12px] text-[#6b756f] mb-4">
+            <span>Б 32г</span><span>Ж 18г</span><span>У 28г</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[13px] text-[#6b756f]">≈ 340 ₽</span>
+            <span class="text-[13px] font-medium text-[#5c7a56] group-hover:underline">Открыть карту →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="soft-card-strong rounded-[24px] overflow-hidden fade-up group cursor-pointer">
+        <div class="h-36 bg-[#e8f0e6] relative flex items-center justify-center">
+          <span class="text-[48px]">🥤</span>
+          <div class="absolute top-3 right-3 soft-card rounded-full px-2.5 py-1 text-[11px] font-medium">320 ккал</div>
+        </div>
+        <div class="p-5">
+          <div class="text-[12px] text-[#6b756f] mb-1">Завтрак · 08:30</div>
+          <h3 class="font-semibold text-[17px] mb-2">Зелёный смузи-боул</h3>
+          <div class="flex gap-3 text-[12px] text-[#6b756f] mb-4">
+            <span>Б 18г</span><span>Ж 9г</span><span>У 42г</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[13px] text-[#6b756f]">≈ 180 ₽</span>
+            <span class="text-[13px] font-medium text-[#5c7a56] group-hover:underline">Открыть карту →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="soft-card-strong rounded-[24px] overflow-hidden fade-up group cursor-pointer">
+        <div class="h-36 bg-[#f0ebe3] relative flex items-center justify-center">
+          <span class="text-[48px]">🍲</span>
+          <div class="absolute top-3 right-3 soft-card rounded-full px-2.5 py-1 text-[11px] font-medium">510 ккал</div>
+        </div>
+        <div class="p-5">
+          <div class="text-[12px] text-[#6b756f] mb-1">Ужин · 19:00</div>
+          <h3 class="font-semibold text-[17px] mb-2">Курица с бататом и брокколи</h3>
+          <div class="flex gap-3 text-[12px] text-[#6b756f] mb-4">
+            <span>Б 41г</span><span>Ж 14г</span><span>У 38г</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[13px] text-[#6b756f]">≈ 290 ₽</span>
+            <span class="text-[13px] font-medium text-[#5c7a56] group-hover:underline">Открыть карту →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 py-12">
+    <div class="soft-card-strong rounded-[28px] overflow-hidden fade-up">
+      <div class="green-grad px-6 sm:px-8 py-6 text-white">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-[13px] opacity-80">Карта рецепта</div>
+            <h3 class="text-[22px] sm:text-[26px] font-semibold mt-1">Зелёный смузи-боул</h3>
+          </div>
+          <div class="text-right">
+            <div class="text-[24px] font-semibold">320</div>
+            <div class="text-[12px] opacity-80">ккал</div>
+          </div>
+        </div>
+      </div>
+      <div class="p-6 sm:p-8">
+        <div class="grid sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-[#f0f5ed] rounded-2xl p-4 text-center">
+            <div class="text-[20px] font-semibold">18г</div>
+            <div class="text-[12px] text-[#6b756f]">Белки</div>
+          </div>
+          <div class="bg-[#f0f5ed] rounded-2xl p-4 text-center">
+            <div class="text-[20px] font-semibold">9г</div>
+            <div class="text-[12px] text-[#6b756f]">Жиры</div>
+          </div>
+          <div class="bg-[#f0f5ed] rounded-2xl p-4 text-center">
+            <div class="text-[20px] font-semibold">42г</div>
+            <div class="text-[12px] text-[#6b756f]">Углеводы</div>
+          </div>
+        </div>
+
+        <h4 class="font-semibold text-[15px] mb-4">Пошагово</h4>
+        <div class="space-y-3 mb-8">
+          <div class="recipe-step flex gap-4 p-3 rounded-xl">
+            <div class="w-8 h-8 rounded-full green-grad text-white text-[13px] flex items-center justify-center font-medium shrink-0">1</div>
+            <div>
+              <div class="font-medium text-[14px]">Подготовь основу</div>
+              <div class="text-[13px] text-[#6b756f] mt-0.5">Шпинат 40г, банан 1 шт, замороженные ягоды 50г</div>
+            </div>
+          </div>
+          <div class="recipe-step flex gap-4 p-3 rounded-xl">
+            <div class="w-8 h-8 rounded-full green-grad text-white text-[13px] flex items-center justify-center font-medium shrink-0">2</div>
+            <div>
+              <div class="font-medium text-[14px]">Добавь белок и жидкость</div>
+              <div class="text-[13px] text-[#6b756f] mt-0.5">Протеин 25г, миндальное молоко 200мл</div>
+            </div>
+          </div>
+          <div class="recipe-step flex gap-4 p-3 rounded-xl">
+            <div class="w-8 h-8 rounded-full green-grad text-white text-[13px] flex items-center justify-center font-medium shrink-0">3</div>
+            <div>
+              <div class="font-medium text-[14px]">Взбей до однородности</div>
+              <div class="text-[13px] text-[#6b756f] mt-0.5">40–50 секунд. Консистенция должна быть густой.</div>
+            </div>
+          </div>
+          <div class="recipe-step flex gap-4 p-3 rounded-xl">
+            <div class="w-8 h-8 rounded-full bg-[#a8c5a0] text-white text-[13px] flex items-center justify-center font-medium shrink-0">4</div>
+            <div>
+              <div class="font-medium text-[14px]">Подай</div>
+              <div class="text-[13px] text-[#6b756f] mt-0.5">Укрась семенами чиа, кокосовой стружкой и ягодами</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-[#e5ebe6]">
+          <div class="text-[14px]">
+            <span class="text-[#6b756f]">Себестоимость:</span>
+            <span class="font-semibold ml-1">≈ 180 ₽</span>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn soft-card rounded-xl px-4 py-2.5 text-[13px] font-medium">В список покупок</button>
+            <button class="btn green-grad text-white rounded-xl px-4 py-2.5 text-[13px] font-medium">Отметить съеденным</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="progress" class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 py-16">
+    <div class="text-center mb-10 fade-up">
+      <h2 class="font-serif text-[28px] sm:text-[34px] tracking-tight mb-2">Твой прогресс</h2>
+      <p class="text-[#5c6b62] text-[15px]">Всё видно и понятно</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="soft-card rounded-[22px] p-5 fade-up">
+        <div class="text-[13px] text-[#6b756f] mb-1">Сегодня</div>
+        <div class="text-[28px] font-semibold">1420 <span class="text-[16px] font-normal text-[#6b756f]">/ 1840</span></div>
+        <div class="h-2 bg-[#e5ebe6] rounded-full mt-3 overflow-hidden">
+          <div class="h-full green-grad rounded-full" style="width:77%"></div>
+        </div>
+      </div>
+      <div class="soft-card rounded-[22px] p-5 fade-up">
+        <div class="text-[13px] text-[#6b756f] mb-1">Белки</div>
+        <div class="text-[28px] font-semibold">98 <span class="text-[16px] font-normal text-[#6b756f]">г</span></div>
+        <div class="text-[12px] text-emerald-600 mt-1">Цель достигнута</div>
+      </div>
+      <div class="soft-card rounded-[22px] p-5 fade-up">
+        <div class="text-[13px] text-[#6b756f] mb-1">Серия дней</div>
+        <div class="text-[28px] font-semibold">12</div>
+        <div class="text-[12px] text-[#6b756f] mt-1">дней подряд</div>
+      </div>
+      <div class="soft-card rounded-[22px] p-5 fade-up">
+        <div class="text-[13px] text-[#6b756f] mb-1">Вода</div>
+        <div class="text-[28px] font-semibold">1.8 <span class="text-[16px] font-normal text-[#6b756f]">л</span></div>
+        <div class="h-2 bg-[#e5ebe6] rounded-full mt-3 overflow-hidden">
+          <div class="h-full bg-sky-400 rounded-full" style="width:72%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="supplements" class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 py-16">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 fade-up">
+      <div>
+        <h2 class="font-serif text-[28px] sm:text-[34px] tracking-tight mb-2">БАДы и спортпит</h2>
+        <p class="text-[#5c6b62] text-[15px]">Рекомендации под твои цели</p>
+      </div>
+      <button class="text-[14px] font-medium text-[#5c7a56]">Смотреть все →</button>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="soft-card-strong rounded-[22px] p-5 fade-up">
+        <div class="w-14 h-14 rounded-2xl bg-[#f0f5ed] flex items-center justify-center text-[28px] mb-4">💊</div>
+        <div class="text-[11px] text-[#6b756f] mb-1">Энергия · Сердце</div>
+        <h3 class="font-semibold text-[16px] mb-1">CoQ10</h3>
+        <p class="text-[13px] text-[#5c6b62] mb-3">Поддержка энергии и сердца</p>
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-[15px]">1 890 ₽</span>
+          <button class="btn soft-card rounded-xl px-3 py-1.5 text-[12px] font-medium">Добавить</button>
+        </div>
+      </div>
+      <div class="soft-card-strong rounded-[22px] p-5 fade-up">
+        <div class="w-14 h-14 rounded-2xl bg-[#f0f5ed] flex items-center justify-center text-[28px] mb-4">🌿</div>
+        <div class="text-[11px] text-[#6b756f] mb-1">Стресс · Адаптация</div>
+        <h3 class="font-semibold text-[16px] mb-1">Ашваганда</h3>
+        <p class="text-[13px] text-[#5c6b62] mb-3">Снижает стресс и тревожность</p>
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-[15px]">1 240 ₽</span>
+          <button class="btn soft-card rounded-xl px-3 py-1.5 text-[12px] font-medium">Добавить</button>
+        </div>
+      </div>
+      <div class="soft-card-strong rounded-[22px] p-5 fade-up">
+        <div class="w-14 h-14 rounded-2xl bg-[#f0f5ed] flex items-center justify-center text-[28px] mb-4">💪</div>
+        <div class="text-[11px] text-[#6b756f] mb-1">Белок · Восстановление</div>
+        <h3 class="font-semibold text-[16px] mb-1">Whey Protein</h3>
+        <p class="text-[13px] text-[#5c6b62] mb-3">25г белка на порцию</p>
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-[15px]">2 450 ₽</span>
+          <button class="btn soft-card rounded-xl px-3 py-1.5 text-[12px] font-medium">Добавить</button>
+        </div>
+      </div>
+      <div class="soft-card-strong rounded-[22px] p-5 fade-up">
+        <div class="w-14 h-14 rounded-2xl bg-[#f0f5ed] flex items-center justify-center text-[28px] mb-4">✨</div>
+        <div class="text-[11px] text-[#6b756f] mb-1">Кожа · Суставы</div>
+        <h3 class="font-semibold text-[16px] mb-1">Коллаген</h3>
+        <p class="text-[13px] text-[#5c6b62] mb-3">Поддержка кожи и суставов</p>
+        <div class="flex items-center justify-between">
+          <span class="font-semibold text-[15px]">1 670 ₽</span>
+          <button class="btn soft-card rounded-xl px-3 py-1.5 text-[12px] font-medium">Добавить</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 py-20 text-center">
+    <div class="soft-card-strong rounded-[32px] p-8 sm:p-12 fade-up">
+      <h2 class="font-serif text-[28px] sm:text-[36px] tracking-tight mb-4">Собери свой рацион за 2 минуты</h2>
+      <p class="text-[#5c6b62] text-[15px] sm:text-[16px] max-w-md mx-auto mb-8">
+        Ответь на несколько вопросов — и получи персональный план с подробными картами блюд, прогрессом и рекомендациями.
+      </p>
+      <button class="btn green-grad text-white rounded-2xl px-8 py-4 text-[16px] font-medium shadow-lg shadow-[#7d9b76]/35">
+        Начать бесплатно
+      </button>
+      <p class="text-[12px] text-[#8a958c] mt-5">Без карты · Можно отменить в любой момент</p>
+    </div>
+  </section>
+
+  <footer class="relative z-10 border-t border-[#e5ebe6] px-5 sm:px-8 py-10">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[#8a958c]">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg green-grad"></div>
+        <span class="font-medium text-[#1a211c]">Nourish</span>
+      </div>
+      <div>© 2026 Nourish. Правильное питание красиво.</div>
+    </div>
+  </footer>
 
   <script>
-    const i18n = {
-      ru: {
-        live: "Онлайн", enter: "Войти", time_tracker: "Трекер времени", week_total: "Неделя:", today: "Сегодня", hours: "ЧАСОВ",
-        project_time: "Время проекта", june: "Июнь", future: "СКОРО", anniversary: "ГОДОВЩИНА",
-        todays_meetings: "ВСТРЕЧИ СЕГОДНЯ", meeting1: "Ежедневный обзор", meeting1_sub: "Организация команды",
-        meeting2: "Sprint Surge", meeting2_sub: "Буст для Agile", hyper_focus: "Hyper Focus", active: "Активен",
-        projects: "Проекты", headline1: "Мягкая сила.", headline2: "Чистый сигнал.",
-        subtitle: "Спокойный интерфейс, который не мешает, пока он не нужен.", begin: "Начать", see_flow: "Посмотреть",
-        early_access: "Ранний доступ открыт"
-      },
-      en: {
-        live: "Live", enter: "Enter", time_tracker: "Time Tracker", week_total: "Week total:", today: "Today", hours: "HOURS",
-        project_time: "Project time", june: "June", future: "FUTURE", anniversary: "ANNIVERSARY",
-        todays_meetings: "TODAY'S MEETINGS", meeting1: "Daily Project Review", meeting1_sub: "Team organization",
-        meeting2: "Sprint Surge", meeting2_sub: "Daily Boost for Agile", hyper_focus: "Hyper Focus", active: "Active",
-        projects: "Projects", headline1: "Soft power.", headline2: "Clear signal.",
-        subtitle: "A calm interface that stays out of the way until you need it.", begin: "Begin", see_flow: "See the flow",
-        early_access: "Early access open"
-      }
-    };
-
-    function setLang(lang) {
-      document.documentElement.lang = lang;
-      document.getElementById('lang-ru').classList.toggle('active', lang === 'ru');
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-ru').classList.toggle('text-[#5c6b62]', lang !== 'ru');
-      document.getElementById('lang-en').classList.toggle('text-[#5c6b62]', lang !== 'en');
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (i18n[lang][key]) el.textContent = i18n[lang][key];
-      });
-    }
-
-    setLang('ru');
-
     gsap.to('.fade-up', {
-      opacity: 1, y: 0, duration: 0.9, stagger: 0.07, ease: 'power3.out', delay: 0.1
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      stagger: 0.08,
+      ease: 'power3.out',
+      delay: 0.15
     });
   </script>
 </body>
