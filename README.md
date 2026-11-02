@@ -1,2 +1,3 @@
-# aether-flow
-Something extraordinary
+# Aether
+
+Something that lives between thought and form.
