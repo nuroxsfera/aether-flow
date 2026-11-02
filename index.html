@@ -11,247 +11,304 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #0a0a0f;
-      color: white;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #e8eee9;
+      color: #1a1f1c;
       min-height: 100vh;
       overflow-x: hidden;
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+    .soft-card {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 
+        0 4px 24px -4px rgba(0, 0, 0, 0.06),
+        0 12px 48px -8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255,255,255,0.8);
     }
-    .glass-strong {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(40px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .soft-card-strong {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 
+        0 8px 32px -6px rgba(0, 0, 0, 0.08),
+        0 20px 60px -12px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255,255,255,0.9);
     }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.5;
-      animation: float 20s ease-in-out infinite;
+    .green-glow {
+      background: linear-gradient(145deg, #a8c5b0 0%, #7a9e86 45%, #5c7d68 100%);
     }
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -40px) scale(1.1); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
+    .ring-progress {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 70;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .gradient-text {
-      background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .float {
+      animation: floaty 8s ease-in-out infinite;
     }
-    .btn-glow {
-      position: relative;
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(0.5deg); }
+    }
+    .float-delayed {
+      animation: floaty 9s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+    .float-more {
+      animation: floaty 7.5s ease-in-out infinite;
+      animation-delay: -5s;
+    }
+    .pill {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .btn-soft {
+      transition: all 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+    .btn-soft:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px -4px rgba(0,0,0,0.12);
+    }
+    .btn-soft:active {
+      transform: scale(0.97);
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .progress-bar {
+      height: 6px;
+      border-radius: 99px;
+      background: #e5ebe6;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .btn-glow::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399, #a78bfa);
-      background-size: 300% 300%;
-      border-radius: inherit;
-      z-index: -1;
-      animation: border-spin 4s linear infinite;
-      opacity: 0;
-      transition: opacity 0.4s;
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #7a9e86, #a8c5b0);
     }
-    .btn-glow:hover::before { opacity: 1; }
-    @keyframes border-spin {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .card {
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s;
-    }
-    .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 25px 50px -12px rgba(167, 139, 250, 0.25);
-    }
-    .pulse-ring {
-      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse-ring {
-      0% { transform: scale(0.8); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 0.3; }
-      100% { transform: scale(0.8); opacity: 0.8; }
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    .noise {
+    .ambient {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background: 
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(168, 197, 176, 0.35) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 80% 80%, rgba(140, 170, 150, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 70%);
+    }
+    .dot-pattern {
+      background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
     }
   </style>
 </head>
 <body class="relative">
-  <div class="noise"></div>
-  
-  <!-- Ambient orbs -->
-  <div class="orb w-[600px] h-[600px] bg-purple-600/40 -top-40 -left-40" style="animation-delay: 0s"></div>
-  <div class="orb w-[500px] h-[500px] bg-blue-500/30 top-1/3 -right-20" style="animation-delay: -5s"></div>
-  <div class="orb w-[400px] h-[400px] bg-emerald-500/20 bottom-20 left-1/4" style="animation-delay: -10s"></div>
+  <div class="ambient"></div>
+  <div class="fixed inset-0 dot-pattern opacity-40 pointer-events-none"></div>
 
   <div class="relative z-10 min-h-screen flex flex-col">
-    <!-- Nav -->
-    <nav class="px-6 py-6 flex items-center justify-between max-w-6xl mx-auto w-full">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-xl glass-strong flex items-center justify-center">
-          <div class="w-3 h-3 rounded-full bg-gradient-to-br from-violet-400 to-cyan-400"></div>
+    <header class="px-6 pt-8 pb-4 flex items-center justify-between max-w-6xl mx-auto w-full">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl soft-card-strong flex items-center justify-center">
+          <div class="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-[#7a9e86] to-[#5c7d68]"></div>
         </div>
-        <span class="font-semibold tracking-tight text-lg">Aether</span>
+        <span class="font-semibold tracking-tight text-[17px] text-[#1a1f1c]">Aether</span>
       </div>
-      <div class="hidden md:flex items-center gap-8 text-sm text-white/60">
-        <a href="#experience" class="hover:text-white transition">Experience</a>
-        <a href="#flow" class="hover:text-white transition">Flow</a>
-        <a href="#access" class="hover:text-white transition">Access</a>
-      </div>
-      <button class="btn-glow glass px-5 py-2.5 rounded-full text-sm font-medium hover:bg-white/10 transition">
-        Enter
-      </button>
-    </nav>
-
-    <!-- Hero -->
-    <main class="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center max-w-4xl mx-auto">
-      <div class="fade-in inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full text-xs text-white/70 mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-ring"></span>
-        Live now · Limited early access
-      </div>
-      
-      <h1 class="fade-in text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1] mb-6">
-        The space between<br>
-        <span class="gradient-text">thought and form</span>
-      </h1>
-      
-      <p class="fade-in text-lg md:text-xl text-white/50 max-w-xl mb-12 leading-relaxed">
-        A living interface that turns intention into motion. 
-        Soft. Precise. Unforgettable.
-      </p>
-
-      <div class="fade-in flex flex-col sm:flex-row gap-4">
-        <button id="cta-primary" class="btn-glow glass-strong px-8 py-4 rounded-2xl text-base font-medium hover:scale-[1.03] active:scale-[0.98] transition-transform">
-          Begin the flow
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-1.5 soft-card rounded-full px-3.5 py-1.5 text-[13px] text-[#4a554e]">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          Live
+        </div>
+        <button class="btn-soft soft-card-strong rounded-full px-5 py-2.5 text-[13px] font-medium text-[#1a1f1c]">
+          Enter
         </button>
-        <button class="glass px-8 py-4 rounded-2xl text-base font-medium text-white/70 hover:text-white hover:bg-white/5 transition">
-          Watch the motion
-        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center px-5 py-10 md:py-16 relative">
+      
+      <div class="relative w-full max-w-[880px] h-[540px] md:h-[580px]">
+        
+        <div class="absolute left-0 md:left-[4%] top-[8%] w-[280px] md:w-[320px] float fade-up">
+          <div class="soft-card-strong rounded-[28px] overflow-hidden green-glow relative shadow-2xl">
+            <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+            <div class="relative p-6 text-white">
+              <div class="flex items-start justify-between mb-6">
+                <div>
+                  <div class="text-[11px] font-medium tracking-widest uppercase opacity-80">Time Tracker</div>
+                  <div class="text-[13px] opacity-70 mt-0.5">Week total: 56h</div>
+                </div>
+                <div class="pill rounded-full px-2.5 py-1 text-[11px] flex items-center gap-1.5 bg-white/20 border-white/20">
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  Today
+                </div>
+              </div>
+
+              <div class="flex justify-center mb-7">
+                <div class="relative w-[160px] h-[160px]">
+                  <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="5"/>
+                    <circle class="ring-progress" cx="50" cy="50" r="42" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="text-[32px] font-semibold tracking-tight leading-none">07:16</div>
+                    <div class="text-[11px] opacity-70 mt-1 tracking-wider">HOURS</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <div class="flex gap-2">
+                  <button class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center hover:bg-white/30 transition">
+                    <div class="w-3 h-3 bg-white rounded-sm"></div>
+                  </button>
+                  <button class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center hover:bg-white/30 transition">
+                    <div class="flex gap-0.5">
+                      <div class="w-1 h-3 bg-white rounded-full"></div>
+                      <div class="w-1 h-3 bg-white rounded-full"></div>
+                    </div>
+                  </button>
+                </div>
+                <button class="w-11 h-11 rounded-full bg-white text-[#5c7d68] flex items-center justify-center shadow-lg hover:scale-105 transition">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute left-[2%] md:left-[8%] bottom-[6%] w-[240px] float-delayed fade-up" style="transition-delay:0.1s">
+          <div class="soft-card rounded-[22px] p-5">
+            <div class="text-[12px] text-[#6b756f] mb-1">Project time</div>
+            <div class="flex items-end justify-between mb-3">
+              <div class="text-[28px] font-semibold tracking-tight">68h</div>
+              <div class="text-[12px] text-[#7a9e86] font-medium">65%</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:65%"></div>
+            </div>
+            <div class="flex gap-1.5 mt-3">
+              <div class="h-1.5 flex-1 rounded-full bg-[#7a9e86]"></div>
+              <div class="h-1.5 w-8 rounded-full bg-[#1a1f1c]"></div>
+              <div class="h-1.5 w-5 rounded-full bg-[#d1d9d3]"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute left-[38%] md:left-[42%] top-[4%] w-[260px] float-more fade-up" style="transition-delay:0.15s">
+          <div class="soft-card rounded-[22px] p-4 flex items-center gap-3">
+            <div class="w-12 h-14 rounded-xl bg-gradient-to-b from-[#e8eee9] to-[#d4ddd6] flex flex-col items-center justify-center shrink-0">
+              <div class="text-[10px] text-[#6b756f] font-medium">June</div>
+              <div class="text-[20px] font-semibold leading-none">02</div>
+            </div>
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#c4b5fd] to-[#a78bfa] flex items-center justify-center text-white text-sm font-medium shrink-0">AS</div>
+              <div class="min-w-0">
+                <div class="text-[11px] text-[#6b756f] tracking-wide">FUTURE</div>
+                <div class="text-[14px] font-semibold truncate">ANNIVERSARY</div>
+                <div class="text-[12px] text-[#6b756f]">Ann Stollen</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute right-0 md:right-[2%] top-[18%] w-[260px] float fade-up" style="transition-delay:0.2s">
+          <div class="soft-card-strong rounded-[24px] p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-[13px] font-semibold tracking-wide text-[#1a1f1c]">TODAY'S MEETINGS</div>
+              <div class="w-6 h-6 rounded-full bg-[#1a1f1c] text-white text-[11px] flex items-center justify-center font-medium">2</div>
+            </div>
+            <div class="space-y-4">
+              <div class="flex gap-3">
+                <div class="text-[18px] font-semibold text-[#1a1f1c] w-14 shrink-0">09:20</div>
+                <div>
+                  <div class="text-[14px] font-medium">Daily Project Review</div>
+                  <div class="text-[12px] text-[#6b756f]">Team organization</div>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-[18px] font-semibold text-[#1a1f1c] w-14 shrink-0">11:00</div>
+                <div>
+                  <div class="text-[14px] font-medium">Sprint Surge</div>
+                  <div class="text-[12px] text-[#6b756f]">Daily Boost for Agile</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute right-[8%] bottom-[22%] float-delayed fade-up" style="transition-delay:0.25s">
+          <div class="soft-card rounded-2xl px-4 py-3 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full green-glow flex items-center justify-center">
+              <div class="w-2 h-2 rounded-full bg-white"></div>
+            </div>
+            <div>
+              <div class="text-[12px] font-medium">Hyper Focus</div>
+              <div class="text-[11px] text-[#6b756f]">Active · 34%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute right-[5%] bottom-[4%] w-[180px] float-more fade-up" style="transition-delay:0.3s">
+          <div class="soft-card rounded-[20px] p-4">
+            <div class="text-[11px] text-[#6b756f] mb-2">Projects</div>
+            <div class="flex items-end gap-1.5 h-12">
+              <div class="w-3 bg-[#d1d9d3] rounded-t-sm h-[40%]"></div>
+              <div class="w-3 bg-[#a8c5b0] rounded-t-sm h-[65%]"></div>
+              <div class="w-3 bg-[#7a9e86] rounded-t-sm h-[90%]"></div>
+              <div class="w-3 bg-[#5c7d68] rounded-t-sm h-[70%]"></div>
+              <div class="w-3 bg-[#a8c5b0] rounded-t-sm h-[55%]"></div>
+              <div class="w-3 bg-[#d1d9d3] rounded-t-sm h-[35%]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 md:mt-4 text-center max-w-md px-4 fade-up" style="transition-delay:0.35s">
+        <h1 class="text-[28px] md:text-[34px] font-semibold tracking-tight text-[#1a1f1c] leading-tight mb-3">
+          Soft power.<br>Clear signal.
+        </h1>
+        <p class="text-[15px] text-[#5c6b62] leading-relaxed mb-8">
+          A calm interface that stays out of the way until you need it.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button class="btn-soft green-glow text-white rounded-2xl px-8 py-3.5 text-[15px] font-medium shadow-lg shadow-[#7a9e86]/40">
+            Begin
+          </button>
+          <button class="btn-soft soft-card rounded-2xl px-8 py-3.5 text-[15px] font-medium text-[#1a1f1c]">
+            See the flow
+          </button>
+        </div>
       </div>
     </main>
 
-    <!-- Cards section -->
-    <section id="experience" class="px-6 py-24 max-w-6xl mx-auto w-full">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card glass rounded-3xl p-8 fade-in">
-          <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center mb-6">
-            <svg class="w-5 h-5 text-violet-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </div>
-          <h3 class="text-xl font-medium mb-3">Liquid surfaces</h3>
-          <p class="text-white/50 text-sm leading-relaxed">Every element breathes. Light refracts. Depth is felt, not seen.</p>
-        </div>
-        <div class="card glass rounded-3xl p-8 fade-in" style="transition-delay: 0.1s">
-          <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center mb-6">
-            <svg class="w-5 h-5 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          </div>
-          <h3 class="text-xl font-medium mb-3">Instant presence</h3>
-          <p class="text-white/50 text-sm leading-relaxed">No lag between intention and response. The interface anticipates.</p>
-        </div>
-        <div class="card glass rounded-3xl p-8 fade-in" style="transition-delay: 0.2s">
-          <div class="w-12 h-12 rounded-2xl glass-strong flex items-center justify-center mb-6">
-            <svg class="w-5 h-5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-          </div>
-          <h3 class="text-xl font-medium mb-3">Emotional gravity</h3>
-          <p class="text-white/50 text-sm leading-relaxed">Designed to feel inevitable. Soft power. Quiet confidence.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive demo -->
-    <section id="flow" class="px-6 py-16 max-w-4xl mx-auto w-full">
-      <div class="glass-strong rounded-[2rem] p-1 overflow-hidden">
-        <div class="rounded-[1.9rem] bg-black/40 p-8 md:p-12 relative min-h-[320px] flex flex-col items-center justify-center">
-          <div id="orb-container" class="absolute inset-0 overflow-hidden rounded-[1.9rem]">
-            <div id="interactive-orb" class="absolute w-40 h-40 rounded-full bg-gradient-to-br from-violet-500/40 to-cyan-400/30 blur-2xl transition-all duration-700 ease-out" style="left: 50%; top: 50%; transform: translate(-50%, -50%);"></div>
-          </div>
-          <p class="relative z-10 text-white/40 text-sm mb-4">Move your cursor</p>
-          <h2 class="relative z-10 text-3xl md:text-4xl font-medium gradient-text mb-2">Feel the response</h2>
-          <p class="relative z-10 text-white/50 text-sm max-w-xs text-center">The system listens. Every motion leaves a trace of light.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Access / CTA -->
-    <section id="access" class="px-6 py-24 max-w-2xl mx-auto w-full text-center">
-      <div class="fade-in glass-strong rounded-3xl p-10 md:p-14">
-        <h2 class="text-3xl md:text-4xl font-semibold mb-4">Early access is open</h2>
-        <p class="text-white/50 mb-8 leading-relaxed">A limited circle. Those who enter shape what comes next. No noise. Only signal.</p>
-        
-        <form id="access-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-          <input type="email" placeholder="you@domain.com" required
-            class="flex-1 glass px-5 py-3.5 rounded-xl text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-violet-500/50 bg-white/5" />
-          <button type="submit" class="btn-glow glass-strong px-6 py-3.5 rounded-xl text-sm font-medium whitespace-nowrap">
-            Request access
-          </button>
-        </form>
-        <p class="text-xs text-white/30 mt-6">By entering you agree to the quiet terms of presence.</p>
-      </div>
-    </section>
-
-    <footer class="px-6 py-12 text-center text-white/30 text-sm">
-      <p>Aether · Crafted in motion</p>
+    <footer class="px-6 py-8 flex items-center justify-center gap-6 text-[12px] text-[#8a958c]">
+      <span>Aether</span>
+      <span class="w-1 h-1 rounded-full bg-[#c5cdc7]"></span>
+      <span>Early access open</span>
     </footer>
   </div>
 
   <script>
-    // GSAP entrance
-    gsap.to('.fade-in', {
+    gsap.to('.fade-up', {
       opacity: 1,
       y: 0,
-      duration: 1.2,
-      stagger: 0.12,
+      duration: 1.1,
+      stagger: 0.08,
       ease: 'power3.out',
-      delay: 0.2
+      delay: 0.15
     });
 
-    // Interactive orb
-    const orb = document.getElementById('interactive-orb');
-    const container = document.getElementById('orb-container');
-    container.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      orb.style.left = x + 'px';
-      orb.style.top = y + 'px';
-    });
-    container.addEventListener('mouseleave', () => {
-      orb.style.left = '50%';
-      orb.style.top = '50%';
-    });
-
-    // Form
-    document.getElementById('access-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.textContent = 'Received';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Request access';
-        btn.disabled = false;
-        e.target.reset();
-      }, 2500);
+    document.querySelectorAll('.float, .float-delayed, .float-more').forEach((el, i) => {
+      gsap.to(el, {
+        y: '+=8',
+        duration: 3 + i * 0.4,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: i * 0.3
+      });
     });
   </script>
 </body>
